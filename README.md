@@ -190,7 +190,7 @@ cap install
 
 
 
-##### Copy [config/deploy.rb](../blob/master/config/deploy.rb) setting and paste in your rails app
+##### Copy [config/deploy.rb](../master/config/deploy.rb) setting and paste in your rails app
 
 
 
