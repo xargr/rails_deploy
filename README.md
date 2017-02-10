@@ -3,7 +3,7 @@
 # Estimated time ~40 minutes
 -----------------------------
 
-* [Rails 5](http://rubyonrails.org/){:target="_blank"}
+* [Rails 5](http://rubyonrails.org/)
 * [Mysql](https://www.mysql.com/)
 * [Puma](http://puma.io/)
 * [Ubuntu 16.04](https://www.ubuntu.com/)
@@ -24,12 +24,13 @@ sudo aptitude update
 
 sudo aptitude safe-upgrade
 ```
-# If error with locale
-
+If you have error with locale
+------------------------------
+```
 sudo locale-gen el_GR.UTF-8
-
-#################
-
+```
+##### Next exit from server and create ssh connection
+```
 ssh-copy-id root@xxx.xxx.xx
 
 sudo adduser deploy
@@ -37,16 +38,31 @@ sudo adduser deploy
 sudo adduser deploy sudo
 
 ssh-copy-id deploy@xxx.xxx.xx
+```
 
+##### Edit ssh setting
+```
 sudo vim /etc/ssh/sshd_config
+```
+##### Next, we need to find the line that looks like this:
 
-####
-#change to no
+```
+PermitRootLogin yes
+```
+##### Modify this line to "no" like this to disable root login:
+```
 PermitRootLogin no
+```
 
-#change port 22 to anything
-port 3423
-######
+##### Next, we need to find the line that looks like this:
+```
+Port 22
+```
+##### Modify this line between 22 and 50000:
+
+
+
+```
 
 
 sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev nodejs
