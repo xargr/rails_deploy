@@ -190,7 +190,8 @@ cap install
 
 
 
-Copy [config/deploy.rb](../master/config/deploy.rb) setting and paste in your rails app
+Copy [config/deploy.rb](../master/config/deploy.rb) & [Capfile](../master/Capfile) files
+ and paste in your rails app
 
 
 
