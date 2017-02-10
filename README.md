@@ -190,19 +190,26 @@ cap install
 
 
 
-##### Copy [config/deploy.rb](../master/config/deploy.rb) setting and paste in your rails app
+Copy [config/deploy.rb](../master/config/deploy.rb) setting and paste in your rails app
 
 
 
-
-
+```
 git add -A
 git commit -m "Set up Puma, Nginx & Capistrano"
 git push origin master
+```
+
+Run capistrano init
+
+```
+cap production deploy:initial
+```
 
 
 
-## make /home/deploy/apps/app/shared/config/database.yml
+#### make file /home/deploy/apps/app/shared/config/database.yml
+```
 production:
   adapter: mysql2
   pool: 5
@@ -210,27 +217,48 @@ production:
   encoding: utf8
   database: app
   username: root
-  password: 6936822140
+  password: xxxxxxxxx
+```
 
-###make /home/deploy/apps/app/shared/config/secrets.yml
-production:
-  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
 
+
+#### Set ubuntu environment variable
+```
 rails secret
+
 sudo nano /etc/environment
-#### and add
+```
+
+#### and add this line below
+
+```
 export SECRET_KEY_BASE=abb2e9e094bb8fb1aa216defed455caa0f9
+```
 
 
+At first time run in apps/app/release/2017456534
+
+```
 RAILS_ENV=production bundle exec rake db:create
+```
+
+Example [config/nginx.conf](../master/config/nginx.conf) file, paste in your rails app
 
 
-cap production deploy:initial
-
-
-###set nginx virtualhost
+##### set nginx virtualhost
 sudo rm /etc/nginx/sites-enabled/default
 sudo ln -nfs "/home/deploy/apps/appname/current/config/nginx.conf" "/etc/nginx/sites-enabled/appname"
+
+
+At the end, run
+
+```
+cap production deploy
+```
+
+if you have some problem, create new issue in this repo
+
+##Happy coding...
 
 
 
