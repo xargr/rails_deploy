@@ -1,3 +1,8 @@
+# All package and actions to deploy rails app h1
+# Estimated time ~40 minutes
+
+
+
 ssh root@xxx.xxx.xx
 
 sudo apt-get install aptitude
