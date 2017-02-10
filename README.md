@@ -4,13 +4,16 @@
 -----------------------------
 
 * [Rails 5](http://rubyonrails.org/){:target="_blank"}
-* Mysql
-* Puma
-* Ubuntu 16.04
-* Capistrano
+* [Mysql](https://www.mysql.com/)
+* [Puma](http://puma.io/)
+* [Ubuntu 16.04](https://www.ubuntu.com/)
+* [Capistrano()](http://capistranorb.com/)
 
 
+### The tutorial work with server by [digitalocean.com](https://m.do.co/c/03deef324558)
+##### Login and create a droplet Ubuntu 16.04x64 1gb cpu & 30gb disk
 
+```
 ssh root@xxx.xxx.xx
 
 sudo apt-get install aptitude
@@ -20,7 +23,7 @@ sudo apt-get update
 sudo aptitude update
 
 sudo aptitude safe-upgrade
-
+```
 # If error with locale
 
 sudo locale-gen el_GR.UTF-8
