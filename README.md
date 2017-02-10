@@ -1,4 +1,4 @@
-# All package and actions to deploy rails app h1
+# All package and actions to deploy rails app H1
 # Estimated time ~40 minutes
 
 
