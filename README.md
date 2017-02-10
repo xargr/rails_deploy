@@ -1,6 +1,13 @@
 # All package and actions to deploy rails app
 =============================================
 # Estimated time ~40 minutes
+-----------------------------
+
+* [Rails 5](http://rubyonrails.org/)
+* Mysql
+* Puma
+* Ubuntu 16.04
+* Capistrano
 
 
 
