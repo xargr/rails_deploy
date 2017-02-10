@@ -3,7 +3,7 @@
 # Estimated time ~40 minutes
 -----------------------------
 
-* [Rails 5](http://rubyonrails.org/)
+* [Rails 5](http://rubyonrails.org/) <a href="http://rubyonrails.org/" target="_blank">Rails 5</a>
 * Mysql
 * Puma
 * Ubuntu 16.04
