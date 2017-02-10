@@ -158,6 +158,15 @@ sudo mysql_install_db
 sudo mysql_secure_installation
 ```
 
+Create mysql database
+
+```
+mysql -u root -p
+
+CREATE DATABASE `my-db` CHARACTER SET utf8 COLLATE utf8_general_ci;
+```
+
+
 
 ###### Add additional gem into Gemfile
 
