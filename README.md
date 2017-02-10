@@ -4,6 +4,7 @@
 -----------------------------
 
 * [Rails 5](http://rubyonrails.org/)
+* [Nginx](https://www.nginx.com/resources/wiki/)
 * [Mysql](https://www.mysql.com/)
 * [Puma](http://puma.io/)
 * [Ubuntu 16.04](https://www.ubuntu.com/)
@@ -60,28 +61,48 @@ Port 22
 ```
 ##### Modify this line between 22 and 50000:
 
+```
+Port 4323
+```
 
+##### Next, reload service ssh
+```
+service ssh restart
+```
 
+#### Install additional packages from Rails
+```
+sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev nodejs
 ```
 
 
-sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev nodejs
-
-
+##### Install git & nginx
+```
 sudo apt-get install curl git-core nginx -y
+```
 
+##### Install version ruby language rbenv
+```
 cd
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 exec $SHELL
+```
 
 
+#### Install ruby build plugin for rbenv
+
+```
 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
 exec $SHELL
+```
 
 
+###### Show ruby available versions
+
+```
 rbenv install -l
 
 rbenv install 2.4.0
@@ -91,21 +112,43 @@ rbenv global 2.4.0
 rbenv rehash
 
 ruby -v
+```
 
+##### Next, install ruby gems version control system
+
+```
 gem install bundler
 
 rbenv rehash
+```
 
+
+##### Install Rails
+
+```
 gem install rails -V --no-ri --no-rdoc
 
 rbenv rehash
+```
 
+
+### Create ssh key and copy
+
+```
 ssh-keygen -t rsa
 
 cat ~/.ssh/id_rsa.pub
+```
 
+##### Visit the github and add ssh, after test it
+
+```
 ssh -T git@github.com
+```
 
+
+#### Next, install Mysql
+```
 sudo aptitude update
 
 sudo apt-get install mysql-server mysql-client libmysqlclient-dev
@@ -113,10 +156,12 @@ sudo apt-get install mysql-server mysql-client libmysqlclient-dev
 sudo mysql_install_db
 
 sudo mysql_secure_installation
+```
 
-######
 
+###### Add additional gem into Gemfile
 
+```
 group :development do
     gem 'capistrano',         require: false
     gem 'capistrano-rvm',     require: false
@@ -126,109 +171,28 @@ group :development do
 end
 
 gem 'puma'
+```
 
-######
+#### Next, install gems
 
-
+```
 bundle
 
 rbenv rehash
+```
 
+#### Create files from caristrano
+
+```
 cap install
-
+```
 
 
 
 
 #####config/deploy.rb
 
-# Change these
-server 'your_server_ip', port: your_port_num, roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'git@example.com:username/appname.git'
-set :application,     'appname'
-set :user,            'deploy'
-set :puma_threads,    [4, 16]
-set :puma_workers,    0
-
-# Don't change these unless you know what you're doing
-set :pty,             true
-set :use_sudo,        false
-set :stage,           :production
-set :deploy_via,      :remote_cache
-set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
-set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
-set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
-set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
-set :puma_access_log, "#{release_path}/log/puma.error.log"
-set :puma_error_log,  "#{release_path}/log/puma.access.log"
-set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
-set :puma_preload_app, true
-set :puma_worker_timeout, nil
-set :puma_init_active_record, true  # Change to false when not using ActiveRecord
-
-## Defaults:
-# set :scm,           :git
-# set :branch,        :master
-# set :format,        :pretty
-# set :log_level,     :debug
-# set :keep_releases, 5
-
-## Linked Files & Directories (Default None):
-# set :linked_files, %w{config/database.yml}
-# set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-
-namespace :puma do
-  desc 'Create Directories for Puma Pids and Socket'
-  task :make_dirs do
-    on roles(:app) do
-      execute "mkdir #{shared_path}/tmp/sockets -p"
-      execute "mkdir #{shared_path}/tmp/pids -p"
-    end
-  end
-
-  before :start, :make_dirs
-end
-
-namespace :deploy do
-  desc "Make sure local git is in sync with remote."
-  task :check_revision do
-    on roles(:app) do
-      unless `git rev-parse HEAD` == `git rev-parse origin/master`
-        puts "WARNING: HEAD is not the same as origin/master"
-        puts "Run `git push` to sync changes."
-        exit
-      end
-    end
-  end
-
-  desc 'Initial Deploy'
-  task :initial do
-    on roles(:app) do
-      before 'deploy:restart', 'puma:start'
-      invoke 'deploy'
-    end
-  end
-
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      invoke 'puma:restart'
-    end
-  end
-
-  before :starting,     :check_revision
-  after  :finishing,    :compile_assets
-  after  :finishing,    :cleanup
-  after  :finishing,    :restart
-end
-
-# ps aux | grep puma    # Get puma pid
-# kill -s SIGUSR2 pid   # Restart puma
-# kill -s SIGTERM pid   # Stop puma
-
-
-############
 
 
 
