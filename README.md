@@ -256,11 +256,11 @@ Example [config/nginx.conf](../master/config/nginx.conf) file, paste in your rai
 
 
 ##### set nginx virtualhost
+```
 sudo rm /etc/nginx/sites-enabled/default
+
 sudo ln -nfs "/home/deploy/apps/appname/current/config/nginx.conf" "/etc/nginx/sites-enabled/appname"
 
-
-```
 sudo service nginx restart
 ```
 
