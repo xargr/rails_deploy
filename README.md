@@ -163,7 +163,7 @@ Create mysql database
 ```
 mysql -u root -p
 
-CREATE DATABASE `my-db` CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE `app` CHARACTER SET utf8 COLLATE utf8_general_ci;
 ```
 
 
@@ -258,6 +258,11 @@ Example [config/nginx.conf](../master/config/nginx.conf) file, paste in your rai
 ##### set nginx virtualhost
 sudo rm /etc/nginx/sites-enabled/default
 sudo ln -nfs "/home/deploy/apps/appname/current/config/nginx.conf" "/etc/nginx/sites-enabled/appname"
+
+
+```
+sudo service nginx restart
+```
 
 
 At the end, run
