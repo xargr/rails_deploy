@@ -271,6 +271,8 @@ At the end, run
 cap production deploy
 ```
 
+#How to install let's encrypt [#1](https://github.com/xargr/rails_deploy/issues/1)
+
 if you have some problem, create new issue in this repo
 
 ##Happy coding...
