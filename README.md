@@ -168,7 +168,7 @@ CREATE DATABASE `app` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
 
-** Add additional gem into Gemfile **
+**Add additional gem into Gemfile**
 
 ```
 group :development do
