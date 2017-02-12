@@ -114,6 +114,10 @@ rbenv rehash
 ruby -v
 ```
 
+** You just add following line to your local `~/.gemrc` file (it is in your home folder) **
+
+`gem: --no-document`
+
 ##### Next, install ruby gems version control system
 
 ```
