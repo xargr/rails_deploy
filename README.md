@@ -114,7 +114,7 @@ rbenv rehash
 ruby -v
 ```
 
-** You just add following line to your local `~/.gemrc` file (it is in your home folder) **
+**You just add following line to your local `~/.gemrc` file (it is in your home folder)**
 
 `gem: --no-document`
 
