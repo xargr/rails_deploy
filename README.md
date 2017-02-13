@@ -271,9 +271,18 @@ sudo service nginx restart
 
 At the end, run
 
-```
-cap production deploy
-```
+**If you want only to restart puma server**
+
+`cap production deploy:restart`
+
+
+**After deploy, publish change**
+
+`git add -A`
+`git commit -m "Deploy Message"`
+`git push origin master`
+`cap production deploy`
+
 
 ####How to install let's encrypt [#1](https://github.com/xargr/rails_deploy/issues/1)
 
